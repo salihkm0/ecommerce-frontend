@@ -10,9 +10,14 @@ export const AdminDashboard = () => {
     useEffect(() => {
         const fetchUser = async () => {
             try {
-              const res = await axios.get('http://localhost:5555/api/v1/admin/profile');
-            //   setCurrentUser(response.data);
-                console.log(res);
+              const res = await axios.get('http://localhost:5555/api/v1/admin/profile',
+              {
+                withCredentials : true
+              });
+                console.log(res.data.user);
+                if(res.data.success){
+                  setCurrentUser(res.data.user)
+                }
             } catch (error) {
               console.error('Failed to fetch user', error);
             }
@@ -20,10 +25,11 @@ export const AdminDashboard = () => {
       
           fetchUser();
     }, [])
-    console.log(document.cookie);
   return (
     <>
     <div>AdminDashboard</div>
+
+    Name : {currentUser.firstName ? currentUser.firstName + " " + currentUser.lastName : "Loadding..."} 
     </>
   )
 }

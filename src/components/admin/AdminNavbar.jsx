@@ -2,15 +2,14 @@ import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 // import { useCookies } from "react-cookie";
 
-
 const navigation = [
-  { name: "Home", href: "#", current: true },
-  { name: "Shop", href: "#", current: false },
-  { name: "About", href: "#", current: false },
-  { name: "Admin Dashboard", href: "#", current: false },
+  { name: "Home", to: "/", current: true },
+  { name: "Shop", to: "#", current: false },
+  { name: "About", to: "#", current: false },
+  // { name: "Admin Dashboard", to: "/admin/dashboard", current: false },
 ];
 
 function classNames(...classes) {
@@ -18,17 +17,18 @@ function classNames(...classes) {
 }
 
 export const AdminNavbar = () => {
-    // const [cookies, removeCookie] = useCookies([]);
-    const navigate = useNavigate()
-  const handleSignout =async () => {
-    const res = await axios.get("http://localhost:5555/api/v1/admin/logout", 
-    // {
-    //   withCredentials: true,
-    // }
+  // const [cookies, removeCookie] = useCookies([]);
+  const navigate = useNavigate();
+  const handleSignout = async () => {
+    const res = await axios.post(
+      "http://localhost:5555/api/v1/admin/logout",
+      {
+        withCredentials: true,
+      }
     );
     console.log(res.data);
-    if(res.data.success){
-        return navigate("/admin/signin")
+    if (res.data.success) {
+      return navigate("/admin/signin");
     }
   };
 
@@ -38,8 +38,7 @@ export const AdminNavbar = () => {
         <>
           <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
             <div className="relative flex h-16 items-center justify-between">
-              <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
-                {/* Mobile menu button*/}
+              {/* <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                 <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
                   <span className="absolute -inset-0.5" />
                   <span className="sr-only">Open main menu</span>
@@ -49,7 +48,7 @@ export const AdminNavbar = () => {
                     <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
                   )}
                 </Disclosure.Button>
-              </div>
+              </div> */}
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                 <div className="flex flex-shrink-0 items-center">
                   <img
@@ -58,12 +57,12 @@ export const AdminNavbar = () => {
                     alt="Your Company"
                   />
                 </div>
-                <div className="hidden sm:ml-6 sm:block">
+                {/* <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
                     {navigation.map((item) => (
-                      <a
+                      <Link
                         key={item.name}
-                        href={item.href}
+                        to={item.to}
                         className={classNames(
                           item.current
                             ? "bg-gray-900 text-white"
@@ -73,10 +72,10 @@ export const AdminNavbar = () => {
                         aria-current={item.current ? "page" : undefined}
                       >
                         {item.name}
-                      </a>
+                      </Link>
                     ))}
                   </div>
-                </div>
+                </div> */}
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 {/* <button
@@ -90,7 +89,7 @@ export const AdminNavbar = () => {
                 {/* <a href="" className="bg-gray-900 text-white p-2 rounded-md mr-2">
                     Become a Seller
                 </a> */}
-                <div className="flex items-center mr-4 bg-transparent border-2 border-white rounded text-white text-sm	">
+                {/* <div className="flex items-center mr-4 bg-transparent border-2 border-white rounded text-white text-sm	">
                   <div className="pl-1">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -110,7 +109,7 @@ export const AdminNavbar = () => {
                     className="bg-transparent w-full px-2 py-1 outline-0 h-full	"
                     placeholder="Search..."
                   />
-                </div>
+                </div> */}
 
                 {/* Profile dropdown */}
                 <Menu as="div" className="relative ml-3">
@@ -137,15 +136,15 @@ export const AdminNavbar = () => {
                     <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                       <Menu.Item>
                         {({ active }) => (
-                          <a
-                            href="#"
+                          <Link
+                            to="/admin/profile"
                             className={classNames(
                               active ? "bg-gray-100" : "",
                               "block px-4 py-2 text-sm text-gray-700"
                             )}
                           >
                             Your Profile
-                          </a>
+                          </Link>
                         )}
                       </Menu.Item>
                       <Menu.Item>
@@ -190,7 +189,7 @@ export const AdminNavbar = () => {
             </div>
           </div>
 
-          <Disclosure.Panel className="sm:hidden">
+          {/* <Disclosure.Panel className="sm:hidden">
             <div className="space-y-1 px-2 pb-3 pt-2">
               {navigation.map((item) => (
                 <Disclosure.Button
@@ -209,7 +208,7 @@ export const AdminNavbar = () => {
                 </Disclosure.Button>
               ))}
             </div>
-          </Disclosure.Panel>
+          </Disclosure.Panel> */}
         </>
       )}
     </Disclosure>
