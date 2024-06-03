@@ -4,6 +4,7 @@ import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 // import { useCookies } from "react-cookie";
+import logo from '../../assets/logo-no-background-4.png'
 
 const navigation = [
   { name: "Home", to: "/", current: true },
@@ -53,7 +54,7 @@ export const AdminNavbar = () => {
                 <div className="flex flex-shrink-0 items-center">
                   <img
                     className="h-8 w-auto"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                    src= {logo}
                     alt="Your Company"
                   />
                 </div>
