@@ -1,7 +1,7 @@
 import Styled from "styled-components";
 
 export const StyledContainer = Styled.div`
-padding : 0 8%;
+padding : 100px 8%;
 `;
 export const BannerContainer = Styled.div`
     width :  100%;
@@ -11,7 +11,7 @@ export const BannerContainer = Styled.div`
     grid-template-columns : 1fr 1fr;
     grid-template-rows : 1fr;
     grid-template-areas : "banner banner";
-    margin-top : 100px;
+    margin-top : 0px;
     @media (max-width : 768px){
         grid-template-columns : 1fr;
         grid-template-rows : 1fr;

@@ -23,7 +23,10 @@ export const StyledCard = Styled.div`
     }
     @media (max-width : 600px){
         width: 250px;
-        height: 300px;
+        /* height: 300px; */
+    }
+    @media (max-width : 390px){
+        width : 100%;
     }
         
         
@@ -53,6 +56,21 @@ export const CardImageContainer = Styled.div`
         display : flex;
         bottom : 10px;
     }
+    @media (max-width : 1259px){
+        height: 300px;
+    }
+    @media (max-width : 1195px){
+        height: 280px;
+    }
+    @media (max-width : 900px){
+        height: 250px;
+    }
+    @media (max-width : 600px){
+        height: 240px;
+    }
+    /* @media (max-width : 390px){
+        height: auto;
+    } */
 `;
 export const CardImage = Styled.img`
     width: 100%;
@@ -69,17 +87,42 @@ export const CardTitle = Styled.h1`
     font-size: 1.5rem;
     color: #000000;
     font-weight : 600;
+    @media (max-width : 1259px){
+        font-size: 1.5rem;
+    }
+    @media (max-width : 1195px){
+        font-size: 1.3rem;
+    }
+    @media (max-width : 900px){
+        font-size: 1.1rem;
+    }
+    @media (max-width : 600px){
+        font-size: 1rem;
+    }
 `;
 export const CardPrice = Styled.p`
     font-size: 1rem;
     color: #555555;
     font-weight : 400;
     text-decoration : line-through;
+    @media (max-width : 900px){
+        font-size: .9rem;
+    }
+    @media (max-width : 600px){
+        font-size: .7rem;
+    }
 `;
 export const CardSellingPrice = Styled.p`
     font-size: 1.2rem;
     color: #535353;
     font-weight : 400;
+    
+    @media (max-width : 900px){
+        font-size: 1.1rem;
+    }
+    @media (max-width : 600px){
+        font-size: 1rem;
+    }
 `;
 
 export const CardIcon = {
@@ -101,3 +144,10 @@ export const CardIconContainer = Styled.div`
     height : 40px;
     background : #fff;
 `;
+
+export const RatingStyle = {
+    fontSize : "20px",
+    "@media (max-width : 600px)" : {
+        fontSize : "15px",
+    }
+}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import toast from "react-hot-toast";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -17,6 +17,26 @@ const schema = yup
 
 export const AdminSignin = () => {
   const navigate = useNavigate();
+
+
+ const checkUser = async () => {
+  try {
+    const res = await axios.get("http://localhost:5555/api/v1/check-user",{
+      withCredentials: true,
+    })
+    console.log(res);
+    if(res.data.success){
+      return navigate("/admin/dashboard")
+    }
+  } catch (error) {
+    console.log(error);
+  }
+ }
+
+  useEffect(() => {
+   checkUser()
+  }, [])
+  
 
   const {
     register,

@@ -18,13 +18,15 @@ import {
 } from "../styles/NewArrivalsStyle";
 import { ProductCard } from "../components/ProductCard";
 import { ShopAllContainer, ShopAllHeadding } from "../styles/ShopAllStyles";
+import { Footer } from "../components/Footer";
+import { SmallCard } from "../components/SmallCard";
 
 export const HomePage = () => {
   const [currentUser, setCurrentUser] = useRecoilState(currentUserState);
   console.log(currentUser);
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
       <StyledContainer>
         <Banners />
         <Section>
@@ -73,8 +75,39 @@ export const HomePage = () => {
             <ProductCard />
             <ProductCard />
           </ShopAllContainer>
+          <Stack
+            direction={"row"}
+            justifyContent="center"
+            alignItems={"center"}
+            margin={"15px 0"}
+          >
+            <PrimeryButton>View All</PrimeryButton>
+          </Stack>
+        </Section>
+        <Section>
+          <ShopAllHeadding>Why Choose Us</ShopAllHeadding>
+          <Stack
+            direction={"row"}
+            justifyContent={"center"}
+            alignItems={"center"}
+            gap = {"10px"}
+          >
+            <SmallCard
+              headding={"Free and Fast Delivery"}
+              description={"Free delivery for all orders over 499rs"}
+            />
+            <SmallCard
+              headding={"27/7 CUSTOMER SERVICE"}
+              description={"Friendly 24/7 customer support"}
+            />
+            <SmallCard
+              headding={"MONEY BACK GUARANTEE"}
+              description={"We return money within 30 days"}
+            />
+          </Stack>
         </Section>
       </StyledContainer>
+      {/* <Footer/> */}
     </>
   );
 };

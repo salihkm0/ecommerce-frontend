@@ -8,7 +8,7 @@ import logo from "../../assets/logo-no-background-4.png";
 
 const navigation = [
   { name: "Home", to: "/", current: true },
-  { name: "Shop", to: "#", current: false },
+  { name: "Shop", to: "/shop", current: false },
   { name: "About", to: "#", current: false },
   // { name: "Admin Dashboard", to: "/admin/", current: false },
 ];
@@ -22,7 +22,7 @@ export const Navbar = () => {
   const navigate = useNavigate();
   const handleSignout = async () => {
     const res = await axios.post(
-      "http://localhost:5555/api/v1/logout"
+      "http://localhost:5555/api/v1/logout",
       // {
       //   withCredentials: true,
       // }

@@ -9,6 +9,7 @@ import {
   CardPrice,
   CardSellingPrice,
   CardTitle,
+  RatingStyle,
   StyledCard,
 } from "../styles/ProductCardStyle";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
@@ -48,6 +49,7 @@ export const ProductCard = () => {
               value={ratingValue}
               precision={0.5}
               readOnly
+              sx={RatingStyle}
             />
           </Stack>
           <Stack direction={"row"} alignItems={"end"} gap={"10px"}>

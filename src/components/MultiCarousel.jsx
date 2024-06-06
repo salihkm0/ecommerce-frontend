@@ -20,14 +20,20 @@ export const MultiCarousel = () => {
       slidesToSlide: 1, // optional, default to 1.
     },
     bigMobile: {
-      breakpoint: { max: 705, min: 309 },
+      breakpoint: { max: 705, min: 454 },
       items: 1.5,
       slidesToSlide: 1, // optional, default to 1.
     },
     mobile: {
-      breakpoint: { max: 309, min: 0 },
+      breakpoint: { max: 454, min: 390 },
+      items: 1.3,
+      slidesToSlide: 1, // optional, default to 1.
+    },
+    smallMobile: {
+      breakpoint: { max: 390, min: 0 },
       items: 1,
       slidesToSlide: 1, // optional, default to 1.
+      centerMode : true
     },
   };
 
