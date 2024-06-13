@@ -24,7 +24,7 @@ export const AdminSignin = () => {
     const res = await axios.get("http://localhost:5555/api/v1/check-user",{
       withCredentials: true,
     })
-    console.log(res);
+    console.log(res.data);
     if(res.data.success){
       return navigate("/admin/dashboard")
     }

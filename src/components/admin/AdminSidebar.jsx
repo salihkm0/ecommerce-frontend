@@ -1,65 +1,228 @@
-import * as React from "react";
-import Box from "@mui/material/Box";
-import Drawer from "@mui/material/Drawer";
-import Button from "@mui/material/Button";
-import List from "@mui/material/List";
-import Divider from "@mui/material/Divider";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
-import MenuIcon from "@mui/icons-material/Menu";
+import { useEffect, useState } from "react";
+import {
+  List,
+  ListItem,
+  ListTitle,
+  NavSubContainer,
+  SidebarContainer,
+  SidebarToggleIcon,
+  ToggleIcon,
+} from "../../styles/Sidebar/SidebarStyle.jsx";
+import CloseIcon from "@mui/icons-material/Close";
+import DehazeIcon from "@mui/icons-material/Dehaze";
+import { Box } from "@mui/system";
 import { Link } from "react-router-dom";
+import { Stack } from "@mui/material";
+import { SidebarProfile } from "./SidebarProfile.jsx";
+
 export const AdminSidebar = () => {
-  const [open, setOpen] = React.useState(false);
+  const [openSidebar, setOpenSidebar] = useState(false);
 
-  const toggleDrawer = (newOpen) => () => {
-    setOpen(newOpen);
-  };
+  const sidebarItems = [
+    {
+      name: "Dashboard",
+      path: "/admin/dashbaord",
+    },
+    {
+      name: "Products",
+      path: "/products",
+    },
+    {
+      name: "Coupons",
+      path: "/coupons",
+    },
+    {
+      name: "Categories",
+      path: "/categories",
+    },
+    {
+      name: "Orders",
+      path: "/orders",
+    },
+    {
+      name: "Customers",
+      path: "/customers",
+    },
+    {
+      name: "Sellers",
+      path: "/sellers",
+    },
+  ];
 
-  const DrawerList = (
-    <Box
-      sx={{ width: 250, margin: "20px 40px" }}
-      role="presentation"
-      onClick={toggleDrawer(false)}
-    >
-      <List>
-        {[ {title : "Dashboard" , path : "dashboard"},{title : "Products" , path : "products/all"},{title : "Users" , path : "users/all"}, {title : "Orders" , path : "orders"}].map((item, index) => (
-          <Link to={`/admin/${item.path}`}>
-            <ListItem key={index} disablePadding>
-              <ListItemButton>
-                <ListItemText primary={item.title} />
-              </ListItemButton>
-            </ListItem>
-          </Link>
-        ))}
-      </List>
-      {/* <Divider />
-      <List>
-        {["All mail", "Trash", "Spam"].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List> */}
-    </Box>
-  );
+  useEffect(() => {
+    const mobileNavHandler = (e) => {
+      setOpenSidebar(false);
+    };
+    document.addEventListener("mousedown", mobileNavHandler);
+  });
 
   return (
-    <div>
-      <Button onClick={toggleDrawer(true)}>
-        <MenuIcon />
-      </Button>
-      <Drawer open={open} onClose={toggleDrawer(false)}>
-        {DrawerList}
-      </Drawer>
-    </div>
+    <>
+      <SidebarContainer open={openSidebar}>
+        <SidebarToggleIcon open={openSidebar}>
+          {openSidebar ? (
+            <CloseIcon sx={ToggleIcon} onClick={() => setOpenSidebar(false)} />
+          ) : (
+            <DehazeIcon sx={ToggleIcon} onClick={() => setOpenSidebar(true)} />
+          )}
+        </SidebarToggleIcon>
+
+        <NavSubContainer>
+          <Link to={"/admin/profile"}>
+            <SidebarProfile />
+          </Link>
+          <Box>
+            {/* <ListTitle>Admin</ListTitle> */}
+            <List>
+              {sidebarItems.map((item ,index) => (
+                <ListItem key={index}>
+                  <Link exact to= {item.path}>
+                    <Stack
+                      direction={"row"}
+                      spacing={"5px"}
+                      alignItems={"center"}
+                    >
+                      <p>{item.name}</p>
+                    </Stack>
+                  </Link>
+                </ListItem>
+              ))}
+            </List>
+          </Box>
+          {/* <Box>
+            <ListTitle>Teacher</ListTitle>
+            <List>
+              <ListItem>
+                <Link to="/admin/teacher/list">
+                  <Stack
+                    direction={"row"}
+                    spacing={"5px"}
+                    alignItems={"center"}
+                  >
+                    <p>View/Edit Teahers</p>
+                  </Stack>
+                </Link>
+              </ListItem>
+              <ListItem>
+                <Link to="/admin/teacher/attendace/list">
+                  <Stack
+                    direction={"row"}
+                    spacing={"5px"}
+                    alignItems={"center"}
+                  >
+                    <p>Teachers Attendance</p>
+                  </Stack>
+                </Link>
+              </ListItem>
+              <ListItem>
+                <Link to="/admin/teacher/attendace/add">
+                  <Stack
+                    direction={"row"}
+                    spacing={"5px"}
+                    alignItems={"center"}
+                  >
+                    <p>Add Teachers Attendance</p>
+                  </Stack>
+                </Link>
+              </ListItem>
+              <ListItem>
+                <Link to="/admin/subject-list">
+                  <Stack
+                    direction={"row"}
+                    spacing={"5px"}
+                    alignItems={"center"}
+                  >
+                    <p>Veiw/Edit Subjects</p>
+                  </Stack>
+                </Link>
+              </ListItem>
+            </List>
+          </Box>
+          <Box>
+            <ListTitle>Student</ListTitle>
+            <List>
+              <ListItem>
+                <Link to="admin/veiw-students">
+                  <Stack
+                    direction={"row"}
+                    spacing={"5px"}
+                    alignItems={"center"}
+                  >
+                    <p>View/Edit Students</p>
+                  </Stack>
+                </Link>
+              </ListItem>
+              <ListItem>
+                <Link to="/admin/parents-list">
+                  <Stack
+                    direction={"row"}
+                    spacing={"5px"}
+                    alignItems={"center"}
+                  >
+                    <p>View/Edit Parents</p>
+                  </Stack>
+                </Link>
+              </ListItem>
+              <ListItem>
+                <Link to="/admin/stud-attendance/add">
+                  <Stack
+                    direction={"row"}
+                    spacing={"5px"}
+                    alignItems={"center"}
+                  >
+                    <p>Add Attendance</p>
+                  </Stack>
+                </Link>
+              </ListItem>
+              <ListItem>
+                <Link to="/admin/stud-attendance/view">
+                  <Stack
+                    direction={"row"}
+                    spacing={"5px"}
+                    alignItems={"center"}
+                  >
+                    <p>Students Attendance</p>
+                  </Stack>
+                </Link>
+              </ListItem>
+              <ListItem>
+                <Link to="/admin/student/exams">
+                  <Stack
+                    direction={"row"}
+                    spacing={"5px"}
+                    alignItems={"center"}
+                  >
+                    <p>Exams</p>
+                  </Stack>
+                </Link>
+              </ListItem>
+              <ListItem>
+                <Link to="/admin/student/results">
+                  <Stack
+                    direction={"row"}
+                    spacing={"5px"}
+                    alignItems={"center"}
+                  >
+                    <p>Students Results</p>
+                  </Stack>
+                </Link>
+              </ListItem>
+              <ListItem>
+                <Link to="/admin/student/events">
+                  <Stack
+                    direction={"row"}
+                    spacing={"5px"}
+                    alignItems={"center"}
+                  >
+                    <p>Students Events</p>
+                  </Stack>
+                </Link>
+              </ListItem>
+            </List>
+          </Box> */}
+          {/* <ListTitle>SETTINGS</ListTitle> */}
+        </NavSubContainer>
+      </SidebarContainer>
+    </>
   );
 };

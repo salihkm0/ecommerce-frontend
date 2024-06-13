@@ -1,7 +1,72 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
 import logo from "../../assets/logo-no-background-3.png";
+import toast from "react-hot-toast";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { Link, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import axios from "axios";
 export const UserLogin = () => {
+  const navigate = useNavigate();
+
+  const schema = yup
+    .object({
+      email: yup
+        .string()
+        .email("Invalid email format")
+        .required("Email is required"),
+      password: yup.string().required("Password is required"),
+    })
+    .required();
+
+  const checkUser = async () => {
+    try {
+      const res = await axios.get("http://localhost:5555/api/v1/check-user", {
+        withCredentials: true,
+      });
+      console.log(res.data);
+      if (res.data.success) {
+        return navigate("/");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    checkUser();
+  }, []);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ resolver: yupResolver(schema) });
+
+  const onSubmit = async (data) => {
+    console.log(data);
+    try {
+      const res = await axios.post(
+        "http://localhost:5555/api/v1/signin",
+        data,
+        {
+          withCredentials: true,
+        }
+      );
+      console.log(res.data);
+      if (res.data.success) {
+        toast.success("Login Success!");
+        return navigate("/");
+      } else {
+        // alert(res.data.message);
+        toast.error(`Login Failed! ${res.data.message}`);
+        return navigate("/signin");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <section className="bg-gray-50 dark:bg-gray-900">
@@ -17,7 +82,10 @@ export const UserLogin = () => {
               <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                 Sign in to your account
               </h1>
-              <form className="space-y-4 md:space-y-6" action="#">
+              <form
+                className="space-y-4 md:space-y-6"
+                onSubmit={handleSubmit(onSubmit)}
+              >
                 <div>
                   <label
                     htmlFor="email"
@@ -31,8 +99,14 @@ export const UserLogin = () => {
                     id="email"
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="name@company.com"
-                    required
+                    // required
+                    {...register("email")}
                   />
+                  {errors.email && (
+                    <p className="text-sm text-red-500">
+                      {errors.email.message}
+                    </p>
+                  )}
                 </div>
                 <div>
                   <label
@@ -47,8 +121,14 @@ export const UserLogin = () => {
                     id="password"
                     placeholder="••••••••"
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    required
+                    // required
+                    {...register("password")}
                   />
+                  {errors.password && (
+                    <p className="text-sm text-red-500">
+                      {errors.password.message}
+                    </p>
+                  )}
                 </div>
                 <div className="flex items-center justify-between">
                   <div className="flex items-start">

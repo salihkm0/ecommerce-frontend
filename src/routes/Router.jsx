@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import { AdminSignin } from "../components/admin/AdminSignin";
+import { ProductLists } from "../components/seller/ProductList";
 import { UserLogin } from "../components/user/UserLogin";
 import { UserSignup } from "../components/user/UserSignup";
 import { AdminLayout } from "../layout/AdminLayout";
@@ -9,9 +10,12 @@ import { AdminDashboard } from "../pages/admin/AdminDashboard";
 import { AdminProfile } from "../pages/admin/AdminProfile";
 import { ProductListingPage } from "../pages/AllProductPage";
 import { CartPage } from "../pages/CartPage";
+import { CheckoutPage } from "../pages/CheckoutPage";
 import { HomePage } from "../pages/HomePage";
+import { OrderSummeryPage } from "../pages/OrderSummeryPage";
 import { ProfilePage } from "../pages/ProfilePage";
 import AddProductPage from "../pages/seller/AddProductPage";
+import { CouponPage } from "../pages/seller/CouponPage";
 import { ShopPage } from "../pages/ShopPage";
 import { SingleProductPage } from "../pages/SingleProductPage";
 
@@ -44,15 +48,23 @@ export const router = createBrowserRouter([
         element: <AdminProfile />,
       },
       {
-        path: "/admin/products/add",
+        path: "/products/add",
         element: <AddProductPage />,
       },
+      {
+        path: "/products",
+        element: <ProductLists />,
+      },
+      {
+        path: "/coupons",
+        element: <CouponPage />,
+      },
+      // {
+      //   path: "/coupons",
+      //   element: <CouponPage />,
+      // },
     ],
   },
-
-  //seller routes
-
-
 
   //user routes
   {
@@ -70,17 +82,25 @@ export const router = createBrowserRouter([
         path: "/about",
         element: <AboutPage />,
       },
-      // {
-      //   path: "/shop",
-      //   element: <ShopPage />,
-      // },
       {
         path: "/shop",
-        element: <ProductListingPage />,
+        element: <ShopPage />,
       },
+      // {
+      //   path: "/shop",
+      //   element: <ProductListingPage />,
+      // },
       {
         path: "/cart",
         element: <CartPage />,
+      },
+      {
+        path: "/checkout",
+        element: <CheckoutPage/>,
+      },
+      {
+        path: "/order-summery",
+        element: <OrderSummeryPage />,
       },
       {
         path: "/product/:id",

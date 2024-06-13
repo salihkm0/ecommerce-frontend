@@ -2,6 +2,7 @@ import Styled from "styled-components";
 
 export const StyledContainer = Styled.div`
 padding : 100px 8%;
+height : auto;
 `;
 export const BannerContainer = Styled.div`
     width :  100%;

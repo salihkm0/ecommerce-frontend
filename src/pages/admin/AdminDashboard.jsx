@@ -8,6 +8,23 @@ export const AdminDashboard = () => {
   const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useRecoilState(currentUserState);
 
+  const checkUser = async () => {
+    try {
+      const res = await axios.get("http://localhost:5555/api/v1/check-user",{
+        withCredentials: true,
+      })
+      console.log(res.data);
+      if(res.data.success){
+        return navigate("/admin/dashboard")
+      }
+      else {
+        return navigate("/admin/signin")
+      }
+    } catch (error) {
+      console.log(error);
+    }
+   }
+
   const fetchUser = async () => {
     try {
       const res = await axios.get(
@@ -16,7 +33,7 @@ export const AdminDashboard = () => {
           withCredentials: true,
         }
       );
-      console.log(res.data.user);
+      console.log("Curent User",res.data.user);
       if (res.data.success) {
         setCurrentUser(res.data.user);
       } else {
@@ -26,10 +43,12 @@ export const AdminDashboard = () => {
       console.error("Failed to fetch user", error);
     }
   };
-
+  
   useEffect(() => {
+    checkUser()
     fetchUser();
   }, []);
+
   return (
     <>
       <div>AdminDashboard</div>
